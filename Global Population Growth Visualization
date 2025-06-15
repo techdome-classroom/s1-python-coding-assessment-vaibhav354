@@ -1,0 +1,18 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+df = pd.read_csv('population_data.csv')
+
+continent_year = df.groupby(['Continent', 'Year'])['Population'].sum().reset_index()
+
+pivot_data = continent_year.pivot(index='Year', columns='Continent', values='Population')
+
+pivot_data.plot(kind='line', marker='o', figsize=(10, 6))
+plt.title('Global Population Growth by Continent')
+plt.xlabel('Year')
+plt.ylabel('Population')
+plt.grid(True)
+plt.legend(title='Continent')
+plt.tight_layout()
+plt.show()
